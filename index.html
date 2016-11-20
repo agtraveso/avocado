@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Avocado</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="public/css/styles.css">
+</head>
+
+<body>
+    <div id="page_container" class="content">
+
+        <div id="video-controls" class="video-controls" style="display:none;">
+            <div class="inner-video-controls">
+                <i id="backward-button" class="fa fa-backward" aria-hidden="true"></i>
+                <i id="play-button" class="fa fa-play fa-3x" aria-hidden="true" style="display:none;"></i>
+                <i id="pause-button" class="fa fa-pause fa-3x" aria-hidden="true"></i>
+                <i id="stop-button" class="fa fa-stop" aria-hidden="true"></i>
+                <i id="forward-button" class="fa fa-forward" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div id="drop-zone" class="drop-zone">
+            <span>Just drag and drop files here</span>
+        </div>
+
+    </div>
+
+    <script>
+        require('./app/lib/chromecast-scanner.js')
+        require('./app/lib/local-server.js')
+        require('./app/lib/chromecast-client.js')
+        require('./app/app.js')
+    </script>
+
+</body>
+</html>
