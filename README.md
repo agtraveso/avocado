@@ -15,12 +15,20 @@ And then install dependencies.
 $ cd avocado && npm install
 ```
 
-## Run
-
-Just type: 
+Rebuild native Node.js modules against the version of Node.js from our Electron.
 
 ```bash
-$ npm start
+$ ./node_modules/.bin/electron-rebuild
+```
+
+:bulb: *This project uses native Node.js modules, whenever you install a new npm package, rerun electron-rebuild (https://github.com/electron/electron-rebuild)
+
+## Run
+
+Just type:
+
+```bash
+$ npm run build && npm start
 ```
 
 

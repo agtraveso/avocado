@@ -5,11 +5,11 @@
 html, body {
   margin: 0;
   font-family: Inconsolata, sans-serif;
-  background-color: red;
+  background-color: black;
+  color: #77dd77;
 }
 
 .content {
-  background-color: black;
   height: 100vh;
   width: 100vw;
   padding: 10px;
@@ -20,7 +20,6 @@ html, body {
 /* Drop zone */
 
 .drop-zone {
-  color: #77dd77;
   border: 2px dashed #77dd77;
   border-radius: 10px;
   display: table-cell;
@@ -35,7 +34,6 @@ div.video-controls {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  background-color: black;
 }
 
 div.inner-video-controls button {

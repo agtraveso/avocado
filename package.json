@@ -4,7 +4,8 @@
   "description": "Chromecast video player in Electron",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "node ./node_modules/webpack/bin/webpack --config webpack.config.js"
   },
   "keywords": [
     "electron",
@@ -17,15 +18,24 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "castv2-client": "^1.1.2",
     "electron-rebuild": "^1.3.0",
     "internal-ip": "^1.2.0",
     "mdns": "^2.3.3",
     "mime": "^1.3.4",
     "range-parser": "^1.2.0",
-    "srt2vtt": "^1.3.1"
+    "react-dropzone": "^3.7.3",
+    "srt2vtt": "^1.3.1",
+    "webpack": "^1.13.3",
+    "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
-    "electron": "^1.4.7"
+    "electron": "^1.4.7",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   }
 }

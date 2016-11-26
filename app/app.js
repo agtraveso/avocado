@@ -1,78 +1,80 @@
-const fs = require('fs');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Dropzone from 'react-dropzone';
+import VideoPlayer from './components/VideoPlayer'
+
 const scanner = require('./lib/chromecast-scanner')();
 const chromecastClient = require('./lib/chromecast-client')();
 
-// start scanning for chromecasts
-scanner.scan();
-scanner.on('found', function (host) {
-	console.log('chromecast found: ' + host);
-	chromecastClient.connect(host);
-	// TODO this should be temporary
-	scanner.stop();
-});
+class App extends React.Component {
 
-const videoControls = document.getElementById('video-controls');
-const dropZone = document.getElementById('drop-zone');
-const body = document.getElementsByTagName("BODY")[0];
-body.ondragover = () => {
-	return false;
-};
-body.ondragleave = dropZone.ondragend = () => {
-	return false;
-};
-body.ondrop = (e) => {
-	e.preventDefault();
-	var media = {};
-	for (let f of e.dataTransfer.files) {
-		if (isFile(f)) {
-			console.log('File(s) you dragged here: ', f.path);
-			if (isSrt(f.path)) {
-				media.subtitles = f;
-			} else {
-				// TODO check if it's a valid video format
-				media.video = f;
-			}
+	constructor() {
+		super();
+
+		this.state = {
+			connectedToChromecast: false,
+			castingVideo: false
 		}
 	}
 
-	// TODO check if chromecast-client is ready before start it...
-	chromecastClient.start(media, function () {
-		dropZone.style.display = 'none';
-		videoControls.style.display = 'table-cell';
-	});
+	componentWillMount() {
+		let self = this;
+		// start scanning for chromecasts
+		scanner.scan();
+		scanner.on('found', function(host) {
+			console.log('chromecast found: ' + host);
+			chromecastClient.connect(host);
+			self.setState({connectedToChromecast: true});
 
-	return false;
-};
+			// TODO this should be temporary
+			scanner.stop();
+		});
+	}
 
-var isSrt = function (path) {
-	return path.substr(-4).toLowerCase() === '.srt';
-};
+	_onDrop(acceptedFiles, rejectedFiles) {
+		let self = this;
 
-var isFile = function (file) {
-	return fs.existsSync(file.path) && fs.statSync(file.path).isFile();
-};
-// video player events
-const playButton = document.getElementById("play-button");
-const pauseButton = document.getElementById("pause-button");
-const stopButton = document.getElementById("stop-button");
+		let media = {};
+		for (let file of acceptedFiles) {
+			console.log('File(s) you dragged here: ', file.path);
+			if (file.path.substr(-4).toLowerCase() === '.srt') {
+				media.subtitles = file;
+			} else {
+				// TODO check if it's a valid video format
+				media.video = file;
+			}
+		};
 
-playButton.addEventListener("click", function (event) {
-	event.preventDefault();
-	pauseButton.style.display = 'initial';
-	playButton.style.display = 'none';
-	chromecastClient.unpause();
-}, false);
+		if (media) {
+			chromecastClient.start(media, function() {
+				self.setState({castingVideo: true});
+			});
+		}
+	}
 
-pauseButton.addEventListener("click", function (event) {
-	event.preventDefault();
-	pauseButton.style.display = 'none';
-	playButton.style.display = 'initial';
-	chromecastClient.pause();
-}, false);
+	_onResume() {
+		chromecastClient.unpause();
+	}
 
-stopButton.addEventListener("click", function (event) {
-	event.preventDefault();
-	pauseButton.style.display = 'none';
-	playButton.style.display = 'initial';
-	chromecastClient.stop();
-}, false);
+	_onPause() {
+		chromecastClient.pause();
+	}
+
+	render() {
+		let appRender = <div>looking for chromecasts...</div>;
+		if (this.state.connectedToChromecast && !this.state.castingVideo) {
+			appRender = (
+				<Dropzone onDrop={this._onDrop.bind(this)} className="drop-zone">
+					<div>Just drop some files here, or click to select files to cast.</div>
+				</Dropzone>
+			);
+		} else if (this.state.connectedToChromecast && this.state.castingVideo) {
+			appRender = (<VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)}/>);
+		}
+
+		return (appRender);
+	}
+}
+
+// Render to ID app in the DOM
+ReactDOM.render(< App / >, document.getElementById('app'));
