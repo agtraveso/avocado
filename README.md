@@ -21,7 +21,7 @@ Rebuild native Node.js modules against the version of Node.js from our Electron.
 $ ./node_modules/.bin/electron-rebuild
 ```
 
-:bulb: *This project uses native Node.js modules, whenever you install a new npm package, rerun electron-rebuild (https://github.com/electron/electron-rebuild)
+:bulb: *This project uses native Node.js modules, whenever you install a new npm package, rerun electron-rebuild (https://github.com/electron/electron-rebuild)*
 
 ## Run
 
