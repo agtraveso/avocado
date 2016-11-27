@@ -1,0 +1,115 @@
+div.volume {
+  span.label {
+    display: block;
+    text-align: right;
+  }
+
+  .rc-slider {
+    position: relative;
+    height: 14px;
+    padding: 5px 0;
+    width: 50%;
+    float: right;
+    border-radius: 6px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  .rc-slider-rail {
+    position: absolute;
+    width: 100%;
+    background-color: $bg-light-color;
+    height: 4px;
+  }
+
+  .rc-slider-track {
+    position: absolute;
+    left: 0;
+    height: 4px;
+    border-radius: 6px;
+    background-color: $primary-color;
+  }
+
+  .rc-slider-handle {
+    position: absolute;
+    margin-left: -7px;
+    margin-top: -5px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: solid 2px $primary-color;
+    background-color: $primary-color;
+    &:hover {
+      border-color: $primary-color-hover;
+    }
+  }
+
+  .rc-slider-mark {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .rc-slider-mark-text {
+    position: absolute;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    color: #999;
+  }
+
+  .rc-slider-mark-text-active {
+    color: #666;
+  }
+
+  .rc-slider-step {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+  }
+
+
+  .rc-slider-vertical {
+    width: 14px;
+    height: 100%;
+    padding: 0 5px;
+    .rc-slider-rail {
+      height: 100%;
+      width: 4px;
+    }
+    .rc-slider-track {
+      left: 5px;
+      bottom: 0;
+      width: 4px;
+    }
+    .rc-slider-handle {
+      margin-left: -5px;
+      margin-bottom: -7px;
+    }
+    .rc-slider-mark {
+      top: 0;
+      left: 18px;
+      height: 100%;
+    }
+    .rc-slider-step {
+      height: 100%;
+      width: 4px;
+    }
+    .rc-slider-dot {
+      left: 2px;
+      margin-bottom: -4px;
+      &:first-child, &:last-child {
+        margin-bottom: -4px;
+      }
+    }
+  }
+}
