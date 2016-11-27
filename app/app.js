@@ -52,7 +52,10 @@ class App extends React.Component {
 				self.setState({castingVideo: true, videoDuration: status.media.duration});
 				// TODO clear somewhere this interval
 				setInterval(() => {
-					chromecastClient.getStatus(function(status) {
+					chromecastClient.getStatus(function(err, status) {
+						if (err) {
+							console.err(err);
+						}
 						self.setState({videoCurrentTime: status.currentTime});
 					});
 				}, 1000);
@@ -73,6 +76,10 @@ class App extends React.Component {
     this.setState({castingVideo: false});
   }
 
+	_onSeek(newCurrentTime){
+		chromecastClient.seek(newCurrentTime);
+	}
+
 	render() {
 		let appRender = <div>looking for chromecasts...</div>;
 		if (this.state.connectedToChromecast && !this.state.castingVideo) {
@@ -88,6 +95,7 @@ class App extends React.Component {
 					onPause={this._onPause.bind(this)}
 					onResume={this._onResume.bind(this)}
 					onStop={this._onStop.bind(this)}
+					onSeek={this._onSeek.bind(this)}
 					videoDuration={this.state.videoDuration}
 					videoCurrentTime={this.state.videoCurrentTime}
 				/>

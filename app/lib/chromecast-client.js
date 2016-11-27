@@ -44,7 +44,7 @@ ChromecastClient.prototype.start = function (media, callback) {
 			activeTrackIds: [1]
 		}, function (err, status) {
 			if (err && callback) return callback(err);
-			callback();
+			callback(status);
 		});
 	});
 };
@@ -67,7 +67,7 @@ ChromecastClient.prototype.stop = function (callback) {
 ChromecastClient.prototype.getStatus = function (callback) {
 	this.player.getStatus(function (err, status) {
 		if (err && callback) return callback(err);
-		callback(status);
+		callback(null, status);
 	});
 };
 

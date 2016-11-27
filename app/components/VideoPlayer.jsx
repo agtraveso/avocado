@@ -53,7 +53,10 @@ class VideoPlayer extends React.Component {
 						{currentPlayerButtons}
 					</div>
 				</div>
-				<ProgressVideoBar duration={this.props.videoDuration} currentTime={this.props.videoCurrentTime} />
+				<ProgressVideoBar
+					onSeek={this.props.onSeek}
+					duration={this.props.videoDuration}
+					currentTime={this.props.videoCurrentTime} />
 			</div>
 		);
 	}
