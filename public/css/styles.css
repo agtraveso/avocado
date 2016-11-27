@@ -30,10 +30,17 @@ html, body {
 
 /* Video player */
 
+div.video-player-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 div.video-controls {
-  display: table-cell;
-  vertical-align: middle;
   text-align: center;
+  padding-bottom: 10px;
 }
 
 div.inner-video-controls button {
@@ -51,4 +58,24 @@ div.inner-video-controls button {
 div.inner-video-controls button:hover {
   background-color: #77dd77;
   color: black;
+}
+
+
+/* Progress bar */
+
+div.progress-bar-container {
+  display: table;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+div.progress-bar {
+  display: flex;
+  background: #696969;
+  height: 1px;
+}
+
+div.progress-bar span {
+  background: #77dd77;
 }

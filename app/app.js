@@ -13,7 +13,9 @@ class App extends React.Component {
 
 		this.state = {
 			connectedToChromecast: false,
-			castingVideo: false
+			castingVideo: false,
+			videoDuration: 0,
+			videoCurrentTime: 0
 		}
 	}
 
@@ -46,8 +48,14 @@ class App extends React.Component {
 		};
 
 		if (media) {
-			chromecastClient.start(media, function() {
-				self.setState({castingVideo: true});
+			chromecastClient.start(media, function(status) {
+				self.setState({castingVideo: true, videoDuration: status.media.duration});
+				// TODO clear somewhere this interval
+				setInterval(() => {
+					chromecastClient.getStatus(function(status) {
+						self.setState({videoCurrentTime: status.currentTime});
+					});
+				}, 1000);
 			});
 		}
 	}
@@ -75,7 +83,14 @@ class App extends React.Component {
 			);
 		} else if (this.state.connectedToChromecast && this.state.castingVideo) {
 			appRender = (
-        <VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)} onStop={this._onStop.bind(this)}/>
+        <VideoPlayer
+					playing={true}
+					onPause={this._onPause.bind(this)}
+					onResume={this._onResume.bind(this)}
+					onStop={this._onStop.bind(this)}
+					videoDuration={this.state.videoDuration}
+					videoCurrentTime={this.state.videoCurrentTime}
+				/>
       );
 		}
 
