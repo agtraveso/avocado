@@ -36,7 +36,7 @@ LocalServer.prototype.serve = function (media, callback) {
 				self.serveVideo(media.video, callback);
 			}
 		});
-	} else if (media.video && !self.server) {
+	} else if (media.video) {
 		self.serveVideo(media.video, callback);
 	}
 };
@@ -77,7 +77,9 @@ LocalServer.prototype.serveSubtitles = function (subtitles, callback) {
 };
 
 LocalServer.prototype.shutdown = function (callback) {
-	var self = this;
+	if (this.server_subs) {
+		this.server_subs.close();
+	}
 	this.server.close(callback);
 };
 

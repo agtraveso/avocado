@@ -59,6 +59,9 @@ ChromecastClient.prototype.unpause = function (callback) {
 
 ChromecastClient.prototype.stop = function (callback) {
 	this.player.stop(callback);
+  this.server.shutdown(function() {
+		console.log('servers stopped');
+	});
 };
 
 ChromecastClient.prototype.getStatus = function (callback) {
