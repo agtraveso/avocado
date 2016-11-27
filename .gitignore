@@ -1,2 +1,5 @@
 node_modules
 app/bundle.js
+
+// macos files
+.DS_Store

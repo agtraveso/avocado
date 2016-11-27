@@ -44,6 +44,8 @@ div.inner-video-controls button {
   padding: 10px;
   letter-spacing: 1px;
   cursor: pointer;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 div.inner-video-controls button:hover {

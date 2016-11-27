@@ -60,6 +60,11 @@ class App extends React.Component {
 		chromecastClient.pause();
 	}
 
+  _onStop() {
+    chromecastClient.stop();
+    this.setState({castingVideo: false});
+  }
+
 	render() {
 		let appRender = <div>looking for chromecasts...</div>;
 		if (this.state.connectedToChromecast && !this.state.castingVideo) {
@@ -69,7 +74,9 @@ class App extends React.Component {
 				</Dropzone>
 			);
 		} else if (this.state.connectedToChromecast && this.state.castingVideo) {
-			appRender = (<VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)}/>);
+			appRender = (
+        <VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)} onStop={this._onStop.bind(this)}/>
+      );
 		}
 
 		return (appRender);
