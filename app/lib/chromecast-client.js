@@ -15,7 +15,7 @@ const ChromecastClient = function () {
 };
 
 // establish a connection to a chromecast device
-ChromecastClient.prototype.connect = function (host) {
+ChromecastClient.prototype.connect = function (host, callback) {
 	var self = this;
 
 	self.client.connect(host, function () {
@@ -27,6 +27,8 @@ ChromecastClient.prototype.connect = function (host) {
 			self.player.on('status', function (status) {
 				console.log('player state: %s', status.playerState);
 			});
+
+      callback();
 		});
 	});
 };

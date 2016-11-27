@@ -16,6 +16,17 @@ html, body {
   display: table;
 }
 
+/** Splash view **/
+
+.loading {
+  width: 100%;
+  height: 100%
+}
+
+.loading > p.message {
+  text-align: center;
+}
+
 
 /* Drop zone */
 
