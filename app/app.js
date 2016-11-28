@@ -12,9 +12,12 @@ class App extends React.Component {
   constructor() {
     super();
 
+    this.statusIntervalId;
     this.state = {
       connectedToChromecast: false,
-      castingVideo: false
+      castingVideo: false,
+      videoDuration: 0,
+      videoCurrentTime: 0
     }
   }
 
@@ -48,8 +51,16 @@ class App extends React.Component {
     };
 
     if (media) {
-      chromecastClient.start(media, function() {
-        self.setState({castingVideo: true});
+      chromecastClient.start(media, function(status) {
+        self.setState({castingVideo: true, videoDuration: status.media.duration});
+        self.statusIntervalId = setInterval(() => {
+          chromecastClient.getStatus(function(err, status) {
+            if (err) {
+              console.err(err);
+            }
+            self.setState({videoCurrentTime: status.currentTime});
+          });
+        }, 1000);
       });
     }
   }
@@ -65,10 +76,15 @@ class App extends React.Component {
   _onStop() {
     chromecastClient.stop();
     this.setState({castingVideo: false});
+    window.clearInterval(this.statusIntervalId);
+  }
+
+  _onSeek(newCurrentTime){
+    chromecastClient.seek(newCurrentTime);
   }
 
   render() {
-    let appRender;
+    let appRender = <div>looking for chromecasts...</div>;
 
     if (this.state.connectedToChromecast) {
       if (!this.state.castingVideo) {
@@ -79,7 +95,15 @@ class App extends React.Component {
         );
       } else {
         appRender = (
-          <VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)} onStop={this._onStop.bind(this)}/>
+          <VideoPlayer
+            playing={true}
+            onPause={this._onPause.bind(this)}
+            onResume={this._onResume.bind(this)}
+            onStop={this._onStop.bind(this)}
+            onSeek={this._onSeek.bind(this)}
+            videoDuration={this.state.videoDuration}
+            videoCurrentTime={this.state.videoCurrentTime}
+          />
         );
       }
     } else {

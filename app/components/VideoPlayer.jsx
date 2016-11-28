@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressVideoBar from './ProgressVideoBar'
 
 class VideoPlayer extends React.Component {
 	constructor(props) {
@@ -8,6 +9,8 @@ class VideoPlayer extends React.Component {
 			playing: this.props.playing
 		}
 	}
+
+	componentDidMount() {}
 
 	_handleResume() {
 		this.setState({playing: true});
@@ -44,10 +47,16 @@ class VideoPlayer extends React.Component {
     this._addCommonButtons(currentPlayerButtons);
 
 		return (
-			<div className="video-controls">
-				<div className="inner-video-controls">
-					{currentPlayerButtons}
+			<div className="video-player-container">
+				<div className="video-controls">
+					<div className="inner-video-controls">
+						{currentPlayerButtons}
+					</div>
 				</div>
+				<ProgressVideoBar
+					onSeek={this.props.onSeek}
+					duration={this.props.videoDuration}
+					currentTime={this.props.videoCurrentTime} />
 			</div>
 		);
 	}
