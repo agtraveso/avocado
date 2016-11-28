@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import Subtitles from './Subtitles/Subtitles'
 
 class VideoPlayer extends React.Component {
 	constructor(props) {
@@ -48,6 +49,8 @@ class VideoPlayer extends React.Component {
 				<div className="inner-video-controls">
 					{currentPlayerButtons}
 				</div>
+
+        <Subtitles mediaName={this.props.media.video.name}/>
 			</div>
 		);
 	}

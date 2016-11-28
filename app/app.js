@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Dropzone from 'react-dropzone';
-import VideoPlayer from './components/VideoPlayer'
-import SplashView from './components/SplashView/SplashView'
+import VideoPlayer from './components/VideoPlayer';
+import SplashView from './components/SplashView/SplashView';
 
 const scanner = require('./lib/chromecast-scanner')();
 const chromecastClient = require('./lib/chromecast-client')();
@@ -14,7 +14,8 @@ class App extends React.Component {
 
     this.state = {
       connectedToChromecast: false,
-      castingVideo: false
+      castingVideo: false,
+      media: null
     }
   }
 
@@ -51,6 +52,8 @@ class App extends React.Component {
       chromecastClient.start(media, function() {
         self.setState({castingVideo: true});
       });
+
+      this.setState({media: media});
     }
   }
 
@@ -79,7 +82,8 @@ class App extends React.Component {
         );
       } else {
         appRender = (
-          <VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)} onStop={this._onStop.bind(this)}/>
+          <VideoPlayer playing={true} onPause={this._onPause.bind(this)} onResume={this._onResume.bind(this)}
+            onStop={this._onStop.bind(this)} media={this.state.media}/>
         );
       }
     } else {

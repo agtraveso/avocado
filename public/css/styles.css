@@ -16,6 +16,24 @@ html, body {
   display: table;
 }
 
+/** Common components **/
+button {
+  background: black;
+  border: 1px solid #77dd77;
+  border-radius: 10px;
+  color: #77dd77;
+  padding: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+button:hover {
+  background-color: #77dd77;
+  color: black;
+}
+
 /** Splash view **/
 
 .loading {
@@ -45,21 +63,4 @@ div.video-controls {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-}
-
-div.inner-video-controls button {
-  background: black;
-  border: 1px solid #77dd77;
-  border-radius: 10px;
-  color: #77dd77;
-  padding: 10px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
-div.inner-video-controls button:hover {
-  background-color: #77dd77;
-  color: black;
 }
