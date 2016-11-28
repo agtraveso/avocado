@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class ProgressVideoBar extends React.Component {
 	constructor(props) {
@@ -26,6 +27,10 @@ class ProgressVideoBar extends React.Component {
 		return time;
 	}
 
+	_formatTime(timeInSeconds){
+		return moment().startOf('day').seconds(Math.round(timeInSeconds)).format('HH:mm:ss')
+	}
+
 	render() {
     let percent = ((100 * this.props.currentTime) / this.props.duration).toFixed(2);
 
@@ -34,12 +39,18 @@ class ProgressVideoBar extends React.Component {
 		};
 
 		return (
-			<div className="progress-bar-container"
-				onMouseOver={this._handleShowCurrentTime.bind(this)}
-				onClick={this._handleSeek.bind(this)}
-				>
-				<div className="progress-bar">
-					<span style={style}></span>
+			<div>
+				<div className="progress-bar-timing">
+					<span>{this._formatTime(this.props.currentTime)}</span>
+					<span className="progress-bar-timing-duration">{this._formatTime(this.props.duration)}</span>
+				</div>
+				<div className="progress-bar-container"
+					onMouseOver={this._handleShowCurrentTime.bind(this)}
+					onClick={this._handleSeek.bind(this)}
+					>
+					<div className="progress-bar">
+						<span style={style}></span>
+					</div>
 				</div>
 			</div>
 		);

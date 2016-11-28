@@ -11,6 +11,7 @@ class App extends React.Component {
 	constructor() {
 		super();
 
+    this.statusIntervalId;
 		this.state = {
 			connectedToChromecast: false,
 			castingVideo: false,
@@ -51,7 +52,7 @@ class App extends React.Component {
 			chromecastClient.start(media, function(status) {
 				self.setState({castingVideo: true, videoDuration: status.media.duration});
 				// TODO clear somewhere this interval
-				setInterval(() => {
+				self.statusIntervalId = setInterval(() => {
 					chromecastClient.getStatus(function(err, status) {
 						if (err) {
 							console.err(err);
@@ -74,6 +75,7 @@ class App extends React.Component {
   _onStop() {
     chromecastClient.stop();
     this.setState({castingVideo: false});
+    window.clearInterval(this.statusIntervalId);
   }
 
 	_onSeek(newCurrentTime){

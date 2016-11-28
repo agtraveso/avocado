@@ -63,9 +63,17 @@ div.inner-video-controls button:hover {
 
 /* Progress bar */
 
+div.progress-bar-timing {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: small;
+}
+
+span.progress-bar-timing-duration {
+  float: right;
+}
+
 div.progress-bar-container {
-  display: table;
-  width: 100%;
   padding: 10px;
   cursor: pointer;
 }
