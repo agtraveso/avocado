@@ -1,10 +1,12 @@
 const Client = require('castv2-client').Client;
 const DefaultMediaReceiver = require('castv2-client').DefaultMediaReceiver;
 const LocalServer = require('./local-server');
+const inherits = require('util').inherits;
+const EventEmitter = require('events').EventEmitter;
 
 const ChromecastClient = function () {
-	if (!(this instanceof ChromecastClient))
-		return new ChromecastClient();
+	if (!(this instanceof ChromecastClient)) return new ChromecastClient();
+	EventEmitter.call(this);
 	var self = this;
 
 	self.client = new Client();
@@ -13,6 +15,8 @@ const ChromecastClient = function () {
 		self.client.close();
 	});
 };
+
+inherits(ChromecastClient, EventEmitter);
 
 // establish a connection to a chromecast device
 ChromecastClient.prototype.connect = function (host, callback) {
@@ -25,7 +29,7 @@ ChromecastClient.prototype.connect = function (host, callback) {
 			console.log('app "%s" launched...', player.session.displayName);
 			self.player = player;
 			self.player.on('status', function (status) {
-				console.log('player state: %s', status.playerState);
+				self.emit('status', status);
 			});
 
       callback();
@@ -88,7 +92,7 @@ ChromecastClient.prototype.getMedia = function (ctx) {
 			foregroundColor: '#FFFFFFFF',
 			edgeColor: '#00000000',
 			edgeType: 'OUTLINE', // can be: "NONE", "OUTLINE", "DROP_SHADOW", "RAISED", "DEPRESSED"
-			fontScale: 1.5, // transforms into "font-size: " + (fontScale*100) +"%"
+			fontScale: 1.3, // transforms into "font-size: " + (fontScale*100) +"%"
 			fontStyle: 'NORMAL', // can be: "NORMAL", "BOLD", "BOLD_ITALIC", "ITALIC",
 			fontFamily: 'Droid Sans', // specific font family
 			fontGenericFamily: 'SANS_SERIF', // can be: "SANS_SERIF", "MONOSPACED_SANS_SERIF", "SERIF", "MONOSPACED_SERIF", "CASUAL", "CURSIVE", "SMALL_CAPITALS",

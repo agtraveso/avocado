@@ -36,6 +36,14 @@ class App extends React.Component {
       // TODO this should be temporary
       scanner.stop();
     });
+
+    chromecastClient.on('status', function(status){
+      console.log('player state: %s', status.playerState);
+      // this will happen when the video ends
+      if(status.playerState === 'IDLE' && self.state.castingVideo){
+        self._onStop();
+      }
+    });
   }
 
   _onDrop(acceptedFiles, rejectedFiles) {
@@ -53,13 +61,11 @@ class App extends React.Component {
     };
 
     if (media) {
-      chromecastClient.start(media, function(status) {
+      chromecastClient.start(media, function(status){
         self.setState({castingVideo: true, videoDuration: status.media.duration});
         self.statusIntervalId = setInterval(() => {
           chromecastClient.getStatus(function(err, status) {
-            if (err) {
-              console.err(err);
-            }
+            if(err) console.err(err);
             self.setState({videoCurrentTime: status.currentTime});
           });
         }, 1000);
