@@ -4,6 +4,8 @@ import Dropzone from 'react-dropzone';
 import VideoPlayer from './components/VideoPlayer'
 import SplashView from './components/SplashView/SplashView'
 
+import './../public/scss/style.scss'
+
 const scanner = require('./lib/chromecast-scanner')();
 const chromecastClient = require('./lib/chromecast-client')();
 
@@ -84,7 +86,7 @@ class App extends React.Component {
   }
 
   render() {
-    let appRender = <div>looking for chromecasts...</div>;
+    let appRender;
 
     if (this.state.connectedToChromecast) {
       if (!this.state.castingVideo) {

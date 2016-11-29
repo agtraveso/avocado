@@ -1,4 +1,4 @@
-const webpack = require("webpack");
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
@@ -14,6 +14,10 @@ module.exports = {
 			test: /\.jsx?$/,
 			loaders: ['babel-loader'],
 			exclude: '/node_modules/'
+		},
+		{
+			test: /\.scss$/,
+			loaders: ['style-loader', 'css-loader', 'sass-loader']
 		}]
 	},
 	resolve: {
