@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Dropzone from 'react-dropzone';
-import VideoPlayer from './components/VideoPlayer'
+import VideoPlayer from './components/VideoPlayer/VideoPlayer'
 import SplashView from './components/SplashView/SplashView'
 
 import './../public/scss/style.scss'
@@ -91,6 +91,10 @@ class App extends React.Component {
     chromecastClient.seek(newCurrentTime);
   }
 
+  _onVolumeChange(volumeValue) {
+    chromecastClient.setVolume(volumeValue);
+  }
+
   render() {
     let appRender;
 
@@ -109,6 +113,7 @@ class App extends React.Component {
             onResume={this._onResume.bind(this)}
             onStop={this._onStop.bind(this)}
             onSeek={this._onSeek.bind(this)}
+            onVolumeChange={this._onVolumeChange.bind(this)}
             videoDuration={this.state.videoDuration}
             videoCurrentTime={this.state.videoCurrentTime}
           />

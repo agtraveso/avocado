@@ -1,30 +1,35 @@
-import React from 'react';
-import ProgressVideoBar from './ProgressVideoBar'
+import React from 'react'
+import ProgressVideoBar from './ProgressVideoBar/ProgressVideoBar'
+import VolumeSlider from 'rc-slider'
 
 class VideoPlayer extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			playing: this.props.playing
-		}
-	}
+    this.state = {
+      playing: this.props.playing
+    }
+  }
 
 	componentDidMount() {}
 
-	_handleResume() {
-		this.setState({playing: true});
-		this.props.onResume();
-	}
+  _handleResume() {
+    this.setState({playing: true});
+    this.props.onResume();
+  }
 
-	_handlePause() {
-		this.setState({playing: false});
-		this.props.onPause();
-	}
+  _handlePause() {
+    this.setState({playing: false});
+    this.props.onPause();
+  }
 
   _handleStop() {
     this.setState({playing: false});
-		this.props.onStop();
+    this.props.onStop();
+  }
+
+  _handleVolumeChange(volumeValue) {
+    this.props.onVolumeChange(volumeValue);
   }
 
   _addCommonButtons(playerButtons) {
@@ -32,17 +37,17 @@ class VideoPlayer extends React.Component {
     playerButtons.push(stopButton);
   }
 
-	render() {
-		let currentPlayerButtons;
-		if (this.state.playing) {
-			currentPlayerButtons = [
+  render() {
+    let currentPlayerButtons;
+    if (this.state.playing) {
+      currentPlayerButtons = [
         <button className="pause" onClick={this._handlePause.bind(this)} key="pauseButton">pause</button>
       ];
-		} else {
-			currentPlayerButtons = [
+    } else {
+      currentPlayerButtons = [
         <button className="play" onClick={this._handleResume.bind(this)} key="playButton">play</button>
       ];
-		}
+    }
 
     this._addCommonButtons(currentPlayerButtons);
 
@@ -57,6 +62,13 @@ class VideoPlayer extends React.Component {
 					onSeek={this.props.onSeek}
 					duration={this.props.videoDuration}
 					currentTime={this.props.videoCurrentTime} />
+
+				<div className="volume">
+          <span className="label">Volume</span>
+		      <VolumeSlider min={0} max={1} defaultValue={0.5} step={0.2}
+          tipFormatter={null}
+          onAfterChange={this._handleVolumeChange.bind(this)}/>
+		    </div>
 			</div>
 		);
 	}

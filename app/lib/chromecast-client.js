@@ -81,6 +81,10 @@ ChromecastClient.prototype.seek = function (newCurrentTime, callback) {
 	this.player.seek(newCurrentTime, callback);
 };
 
+ChromecastClient.prototype.setVolume = function (value) {
+	this.client.setVolume({level: value}, function(e, v) {if (e) console.log("volume error: " + e)});
+};
+
 ChromecastClient.prototype.getMedia = function (ctx) {
 	return {
 		// Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
