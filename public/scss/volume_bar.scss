@@ -1,6 +1,8 @@
 div.volume {
+  padding-right: $margin-size;
   span.label {
     display: block;
+    font-size: small;
     text-align: right;
   }
 
@@ -8,10 +10,8 @@ div.volume {
     position: relative;
     height: 14px;
     padding: 5px 0;
-    width: 50%;
+    width: 30%;
     float: right;
-    border-radius: 6px;
-    box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     * {
       box-sizing: border-box;
@@ -23,26 +23,23 @@ div.volume {
     position: absolute;
     width: 100%;
     background-color: $bg-light-color;
-    height: 4px;
+    height: 1px;
   }
 
   .rc-slider-track {
     position: absolute;
     left: 0;
-    height: 4px;
-    border-radius: 6px;
+    height: 1px;
     background-color: $primary-color;
   }
 
   .rc-slider-handle {
     position: absolute;
     margin-left: -7px;
-    margin-top: -5px;
-    width: 14px;
-    height: 14px;
+    margin-top: -4px;
+    width: 8px;
+    height: 8px;
     cursor: pointer;
-    border-radius: 50%;
-    border: solid 2px $primary-color;
     background-color: $primary-color;
     &:hover {
       border-color: $primary-color-hover;

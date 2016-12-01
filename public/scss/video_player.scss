@@ -10,15 +10,15 @@ div.video-player-container {
 
 div.video-controls {
   text-align: center;
-  padding-bottom: 10px;
+  padding-bottom: $margin-size;
 }
 
 div.inner-video-controls button {
   background: $bg-color;
   border: 1px solid $primary-color;
-  border-radius: 10px;
+  border-radius: $margin-size;
   color: $primary-color;
-  padding: 10px;
+  padding: $margin-size;
   letter-spacing: 1px;
   cursor: pointer;
   margin-left: 4px;
@@ -34,8 +34,8 @@ div.inner-video-controls button:hover {
 // ProgressVideoBar Component
 
 div.progress-bar-timing {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: $margin-size;
+  padding-right: $margin-size;
   font-size: small;
   color: $bg-light-color;
 }
@@ -45,7 +45,7 @@ span.progress-bar-timing-duration {
 }
 
 div.progress-bar-container {
-  padding: 10px;
+  padding: $margin-size;
   cursor: pointer;
 }
 

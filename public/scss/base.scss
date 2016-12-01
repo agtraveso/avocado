@@ -6,6 +6,9 @@ $primary-color-hover: #53f553;
 $bg-light-color: #696969;
 $bg-color: black;
 
+// MARGINS
+$margin-size: 10px;
+
 // BASE STYLES
 * {
   box-sizing: border-box;
@@ -21,6 +24,6 @@ html, body {
 .content {
   height: 100vh;
   width: 100vw;
-  padding: 10px;
+  padding: $margin-size;
   display: table;
 }

@@ -58,17 +58,16 @@ class VideoPlayer extends React.Component {
 						{currentPlayerButtons}
 					</div>
 				</div>
-				<ProgressVideoBar
-					onSeek={this.props.onSeek}
-					duration={this.props.videoDuration}
-					currentTime={this.props.videoCurrentTime} />
-
-				<div className="volume">
+        <div className="volume">
           <span className="label">Volume</span>
 		      <VolumeSlider min={0} max={1} defaultValue={0.5} step={0.2}
           tipFormatter={null}
           onAfterChange={this._handleVolumeChange.bind(this)}/>
 		    </div>
+				<ProgressVideoBar
+					onSeek={this.props.onSeek}
+					duration={this.props.videoDuration}
+					currentTime={this.props.videoCurrentTime} />
 			</div>
 		);
 	}

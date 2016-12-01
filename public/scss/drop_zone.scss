@@ -2,7 +2,7 @@
 
 .drop-zone {
   border: 2px dashed $primary-color;
-  border-radius: 10px;
+  border-radius: $margin-size;
   display: table-cell;
   text-align: center;
   vertical-align: middle;

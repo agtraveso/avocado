@@ -40,10 +40,6 @@ class ProgressVideoBar extends React.Component {
 
 		return (
 			<div>
-				<div className="progress-bar-timing">
-					<span>{this._formatTime(this.props.currentTime)}</span>
-					<span className="progress-bar-timing-duration">{this._formatTime(this.props.duration)}</span>
-				</div>
 				<div className="progress-bar-container"
 					onMouseOver={this._handleShowCurrentTime.bind(this)}
 					onClick={this._handleSeek.bind(this)}
@@ -51,6 +47,10 @@ class ProgressVideoBar extends React.Component {
 					<div className="progress-bar">
 						<span style={style}></span>
 					</div>
+				</div>
+				<div className="progress-bar-timing">
+					<span>{this._formatTime(this.props.currentTime)}</span>
+					<span className="progress-bar-timing-duration">{this._formatTime(this.props.duration)}</span>
 				</div>
 			</div>
 		);
