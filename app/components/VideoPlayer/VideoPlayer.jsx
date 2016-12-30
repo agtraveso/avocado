@@ -6,12 +6,20 @@ class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
 
+    // keep a reference to this function. reason why this is required: https://gist.github.com/Restuta/e400a555ba24daa396cc
+    this._boundHandleKeyEvents = this._handleKeyEvents.bind(this);
     this.state = {
       playing: this.props.playing
     }
   }
 
-	componentDidMount() {}
+	componentDidMount() {
+    this._registerKeyEvents();
+  }
+
+  componentWillUnmount() {
+    this._unregisterKeyEvents();
+  }
 
   _handleResume() {
     this.setState({playing: true});
@@ -37,6 +45,48 @@ class VideoPlayer extends React.Component {
     playerButtons.push(stopButton);
   }
 
+  _togglePlaying(){
+    if (this.state.playing) {
+      this._handlePause();
+    } else {
+      this._handleResume();
+    }
+  }
+
+  _registerKeyEvents(){
+    // using window till a better solution pops up: https://github.com/facebook/react/issues/285
+    window.addEventListener('keydown', this._boundHandleKeyEvents);
+  }
+
+  _unregisterKeyEvents(){
+    window.removeEventListener('keydown', this._boundHandleKeyEvents);
+  }
+
+  _handleKeyEvents(e){
+    switch (e.code) {
+      case "ArrowDown":
+      // TODO volume down
+      break;
+      case "ArrowUp":
+      // TODO volume up
+      break;
+      case "ArrowLeft":
+      // TODO rewind
+      break;
+      case "ArrowRight":
+      // TODO fast-forward
+      break;
+      case "Escape":
+      this._handleStop();
+      break;
+      case "Space":
+      this._togglePlaying();
+      break;
+      default:
+      return;
+    }
+  }
+
   render() {
     let currentPlayerButtons;
     if (this.state.playing) {
@@ -60,9 +110,10 @@ class VideoPlayer extends React.Component {
 				</div>
         <div className="volume">
           <span className="label">Volume</span>
-		      <VolumeSlider min={0} max={1} defaultValue={0.5} step={0.2}
-          tipFormatter={null}
-          onAfterChange={this._handleVolumeChange.bind(this)}/>
+		      <VolumeSlider
+            min={0} max={1} defaultValue={1} step={0.2}
+            tipFormatter={null}
+            onAfterChange={this._handleVolumeChange.bind(this)}/>
 		    </div>
 				<ProgressVideoBar
 					onSeek={this.props.onSeek}

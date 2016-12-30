@@ -101,7 +101,9 @@ class App extends React.Component {
     if (this.state.connectedToChromecast) {
       if (!this.state.castingVideo) {
         appRender = (
-          <Dropzone onDrop={this._onDrop.bind(this)} className="drop-zone">
+          <Dropzone
+            className="drop-zone"
+            onDrop={this._onDrop.bind(this)}>
             <div>Just drop some files here, or click to select files to cast.</div>
           </Dropzone>
         );
